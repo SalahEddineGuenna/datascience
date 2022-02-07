@@ -1,5 +1,4 @@
 # Importing pandas
-# ... YOUR CODE FOR TASK 1 ...
 import pandas as pd
 # Loading in the data
 pulls_one = pd.read_csv('datasets/pulls_2011-2013.csv')
