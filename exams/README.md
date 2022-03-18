@@ -58,3 +58,9 @@ After calculating the average reading scores with/without test preparation cours
 #
 #### the average reading scores for students with/without the test preparation course
 ![parent_education_level](data/parents.png)
+
+# Summarize:
+
+After analyzing our data and plotting, we found firstly that the average of reading scores of students whith the test preparation are more than the ones without the test preparation.
+
+On the other hand the reading scores for different parental educational level is higher for students who's parents got master's degree.
