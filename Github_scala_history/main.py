@@ -1,5 +1,9 @@
 # Importing pandas
+import inline as inline
+import matplotlib
 import pandas as pd
+import matplotlib.pyplot as plt
+
 # Loading in the data
 pulls_one = pd.read_csv('datasets/pulls_2011-2013.csv')
 pulls_two = pd.read_csv('datasets/pulls_2014-2018.csv')
@@ -24,13 +28,14 @@ data['year'] = data['date'].dt.year
 counts = data.groupby(['year', 'month'])['pid'].count()
 
 # Plot the results
-counts.plot(kind='bar', figsize = (12,4))
-
+counts.plot(kind='bar', figsize=(12, 4))
+plt.show()
 # Group by the submitter
 by_user = data.groupby('user').agg({'pid': 'count'})
 
 # Plot the histogram
 by_user.hist()
+plt.show()
 
 # Identify the last 10 pull requests
 last_10 = pulls.sort_values(by='date').tail(10)
@@ -85,6 +90,7 @@ counts_wide = counts.pivot_table(index='date', columns='user', values='pid', fil
 
 # Plot the results
 counts_wide.plot(kind='bar')
+plt.show()
 
 authors = ['xeno-by', 'soc']
 file = 'src/compiler/scala/reflect/reify/phases/Calculate.scala'
@@ -103,3 +109,4 @@ by_file_wide = grouped.pivot_table(index='date', columns='user', values='pid', f
 
 # Plot the results
 by_file_wide.plot(kind='bar')
+plt.show()
