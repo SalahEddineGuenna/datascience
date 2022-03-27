@@ -4,23 +4,38 @@ import pandas as pd
 # Importing our datasets we need to work with
 locations = pd.read_csv('datasets/locations.csv')
 movies = pd.read_csv('datasets/imdb_movies.csv')
+sf = pd.read_csv('datasets/Film_Locations_in_San_Francisco.csv')
 
 movies = movies[movies['avg_vote'] > 6]
 
-# Printing few lines to get idea about our dataframes
-movies_locations = pd.merge(movies, locations, left_on='title', right_on='Title')
+movies_locations = movies.merge(locations, left_on='title', right_on='Title', how='inner')
 
-movies_locations['worldwide_gross_income'] = movies_locations['worldwide_gross_income'].fillna(0)
-movies_locations['Locations'] = movies_locations['Locations'].fillna('null')
-movies_locations['worldwide_gross_income'] = movies_locations['worldwide_gross_income'].str.strip('$')
-movies_locations['worldwide_gross_income'] = movies_locations['worldwide_gross_income'].astype(float)
+print("dataframe columns typs:")
+print(movies_locations.dtypes)
+print('==================')
+print('number of na values in the dataframe : ')
 
-san_fran_movies = movies_locations[movies_locations['Locations'].str.contains('San Francisco')].sort_values(
-                'worldwide_gross_income', ascending=False)
+print(movies_locations.isna().sum())
 
-san_fran_movies.drop_duplicates()
+# dropping na value from the dataframe
+movies_locations = movies_locations.dropna()
+sf = sf.dropna()
 
-sf_hits = san_fran_movies[['Locations', 'title', 'year']][:10]
-sf_hits.set_index('Locations', drop=True, inplace=True)
-print(sf_hits)
+print('***************************************************************')
+print('number of na values in the dataframe after: ')
 
+print(movies_locations.isna().sum())
+print('***************************************************************')
+print(movies_locations[['Title', 'Locations', 'worldwide_gross_income']].head())
+
+movies_locations['worldwide_gross_income'] = movies_locations['worldwide_gross_income'].str.strip('$ ').astype(int)
+movies_locations = movies_locations.sort_values(by='worldwide_gross_income', ascending=False)
+print('***************************************************************')
+print(movies_locations[['Title', 'Locations', 'worldwide_gross_income']].head())
+
+# movies_locations = movies_locations[movies_locations['Locations'] == sf['Locations']]
+
+print('***************************************************************')
+print(sf.dtypes)
+
+print(sf[sf['Locations'] == movies_locations['Locations']].head())
