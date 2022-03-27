@@ -124,6 +124,5 @@ values = [biggish, micro, nano]
 
 # Plotting them with matplotlib
 plt.bar(range(len(values)), values, tick_label=LABELS)
-plt.show()
 
 
